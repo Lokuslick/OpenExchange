@@ -8,7 +8,10 @@ import com.paypay.openexchange.model.network.ApiResult
 import com.paypay.openexchange.model.exchange.ExchangeRate
 import com.paypay.openexchange.model.exchange.Rate
 import com.paypay.openexchange.repository.CurrencyRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.supervisorScope
 
 
 class CurrencyViewModel
@@ -30,7 +33,7 @@ constructor(private val repository: CurrencyRepository) : ViewModel() {
     }
 
     fun getExchangeRate() {
-        viewModelScope.launch {
+        GlobalScope.launch {
             repository.getExchangeRate().collect {
                 _exchangeMutableData.value = it
             }
