@@ -42,7 +42,7 @@ constructor(private val apiInterface: ApiInterface, private val exchangeDao: Exc
             }
 
             // Fetch fresh data from the API if cached data is not available.
-            val apiResult = apiCall(Dispatchers.IO) {
+            val apiResult = apiCall(Dispatchers.Default) {
                 SharedPref.save(SharedPrefKeys.LAST_TIME_FETCH, System.currentTimeMillis())
                 apiInterface.getExchangeRate(Constants.BASE_CURENCY)
             }
